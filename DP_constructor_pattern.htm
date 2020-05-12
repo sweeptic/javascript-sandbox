@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+
+   <nav class="nav">list item</nav>
+
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+
+
+   <style>
+      .example {
+         color: aliceblue;
+         background-color: antiquewhite;
+      }
+   </style>
+
+   <script>
+
+      var instance1 = {};
+      var instance2 = Object.create(Object.prototype);
+      var instance3 = new Object;
+
+      instance1.key = 'this is a key';
+      instance1['key'] = 'this is a key []';
+
+      Object.defineProperty(instance2, 'key2', {
+         value: 'extra key',
+         configurable: true,
+         enumerable: true
+      })
+
+      
+
+
+      console.log(instance2.key2)
+
+
+
+   </script>
+
+</body>
+
+</html>

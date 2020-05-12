@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+
+   <nav class="nav">list item</nav>
+
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+
+
+   <style>
+      .example {
+         color: aliceblue;
+         background-color: antiquewhite;
+      }
+   </style>
+
+   <script>
+
+      class Database {
+
+         nonStaticMethod = function () {
+            console.log('object')
+         }
+
+         static StaticMethod() {
+            console.log('im static method in class')
+         }
+
+         constructor(data) {
+
+            if (Database.exists) {
+               return Database.instance;
+            }
+            this._data = data;
+
+            Database.instance = this;
+            Database.exists = true;
+
+            return this;
+         }
+
+         getData() {
+            return this._data;
+         }
+
+         setData(data) {
+            this._data = data;
+         }
+      }
+
+
+
+      function Database_func(data) {
+
+         this.nonStaticMethod = function () {
+            console.log('object')
+         }
+
+         // this.StaticMethod() = function () {
+         //    console.log('object')
+         // }
+
+         if (Database_func.exists) {
+            return Database_func.instance
+         }
+
+         Database_func.prototype.constructor.exists = true
+         Database_func.prototype.constructor.instance = this
+
+
+         this._data = data;
+
+         Database_func.prototype.getData = function () {
+            return this._data;
+         };
+
+         Database_func.prototype.setData = function (data) {
+            this._data = data
+         };
+      }
+
+
+      // https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript
+
+
+      const d_func = new Database_func('mongo');
+      const d_func2 = new Database_func('sql');
+      console.log(d_func)
+      console.log(d_func2)
+
+
+
+
+      const mongo = new Database('mongo');
+      const mysql = new Database('mysql');
+      console.log(mongo)
+      console.log(mysql)
+
+      Database.StaticMethod()
+
+
+   </script>
+
+</body>
+
+</html>

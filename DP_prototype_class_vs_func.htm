@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+
+   <nav class="nav">list item</nav>
+
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+
+
+   <style>
+      .example {
+         color: aliceblue;
+         background-color: antiquewhite;
+      }
+   </style>
+
+   <script>
+
+
+      const personPrototype = {
+         sayhi: () => console.log(this.name + ' say hi!'),
+         saybye: () => console.log(this.name + ' say bye!')
+      }
+
+      const personPrototype2 = {
+         sayhi2: () => console.log(this.name + ' say hi!'),
+         saybye2: () => console.log(this.name + ' say bye!')
+      }
+
+      function Person(name = "John Doe", age = '44') {
+
+         this.name = name;
+         this.age = age;
+
+//person __proto__ constructor prototype <- egyeni prop!!
+         // Person.prototype = personPrototype2
+      }
+
+      //nem mindegy hova teszem !!!
+      //person __proto__
+      Person.prototype = personPrototype;
+
+
+
+      console.log(Person.prototype)
+
+
+      const person1 = new Person()
+      console.log(person1);
+
+      // person1.sayhi();
+
+      // Take notice how prototype inheritance makes a performance boost as well because both objects contain a reference to the functions which are implemented in the prototype itself, instead of in each of the objects
+
+
+   </script>
+
+</body>
+
+</html>

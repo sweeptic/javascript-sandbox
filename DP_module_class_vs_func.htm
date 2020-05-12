@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+
+   <nav class="nav">list item</nav>
+
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+
+
+   <style>
+      .example {
+         color: aliceblue;
+         background-color: antiquewhite;
+      }
+   </style>
+
+   <script>
+
+      var myModule = (function () {
+         'use strict';
+
+         var _privateProperty = 'Hello World';
+
+         function _privateMethod() {
+            console.log(_privateProperty);
+         }
+
+         return {
+            publicMethod: function () {
+               _privateMethod();
+            }
+         };
+      })();
+
+      // myModule.publicMethod(); // outputs 'Hello World'
+      // console.log(myModule._privateProperty); // is undefined protected by the module closure
+      // myModule._privateMethod(); // is TypeError protected by the module closure
+      console.log(myModule)
+
+
+      var myModule = (function () {
+         'use strict';
+
+         var _privateProperty = 'Hello World';
+         var publicProperty = 'I am a public property';
+
+         function _privateMethod() {
+            console.log(_privateProperty);
+         }
+
+         function publicMethod() {
+            _privateMethod();
+         }
+
+         return {
+            publicMethod: publicMethod,
+            publicProperty: publicProperty
+         };
+      })();
+
+      console.log(myModule)
+
+      // myModule.publicMethod(); // outputs 'Hello World'
+      // console.log(myModule.publicProperty); // outputs 'I am a public property'
+      // console.log(myModule._privateProperty); // is undefined protected by the module closure
+      // myModule._privateMethod(); // is TypeError protected by the module closure
+
+
+   </script>
+
+</body>
+
+</html>
