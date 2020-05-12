@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+
+   <nav class="nav">list item</nav>
+
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul>
+         <li></li>
+      </ul>
+   </div>
+   <div class="example">
+      <ul id="btn">
+         <li></li>
+      </ul>
+   </div>
+
+
+   <style>
+      .example {
+         color: aliceblue;
+         background-color: antiquewhite;
+      }
+   </style>
+
+   <script>
+
+      console.warn('Factory functions')
+      //object with function instance
+      function createPlayer1(userName, score) {
+         const newPlayer = {
+            userName,
+            score,
+            setScore(newScore) {
+               newPlayer.score = newScore;
+            }
+         }
+         return newPlayer;
+      }
+      const player1 = createPlayer1('sag1v', 700);
+      console.log(player1)
+
+
+      console.warn('OLOO - Objects Linked To Other Objects')
+      //object with prototype function
+      const playerFunctions3 = {
+         setScore(newScore) {
+            this.score = newScore;
+         }
+      }
+      function createPlayer3(userName, score) {
+         const newPlayer = Object.create(playerFunctions3);
+         newPlayer.userName = userName;
+         newPlayer.score = score;
+         return newPlayer;
+      }
+      const player3 = createPlayer3('sag1v', 700);
+      const player4 = createPlayer3('sarah', 900);
+      player3.setScore(1000);
+      player4.setScore(2000);
+      console.log(player3)
+      console.log(player4)
+      console.log('createPlayer3 prototype: ', createPlayer3.prototype)
+
+
+      console.warn('The new operator - A.K.A Constructor function')
+      function Player6(userName, score) {
+         this.userName = userName;
+         this.score = score;
+         if (!(this instanceof Player6)) {
+            throw new Error('Player must be called with new')
+         }
+         // ES2015 syntax
+         if (!new.target) {
+            throw new Error('Player must be called with new')
+         }
+      }
+      Player6.prototype.setScore = function (newScore) {
+         this.score = newScore;
+      }
+      const player6 = new Player6('sag1v', 700);
+      // const player6 = new Player6('sarah', 900);
+      console.log(player6)
+      // console.log(player6)
+      console.log('Player6 prototype: ', Player6.prototype)
+
+      console.warn('Class')
+      class Player7 {
+         constructor(userName, score) {
+            this.userName = userName;
+            this.score = score;
+         }
+         setScore(newScore) {
+            this.score = newScore;
+         }
+      }
+      const player7 = new Player7('sag1v', 700);
+      const player8 = new Player7('sarah', 900);
+      console.log(player7)
+      console.log(Player7.prototype)
+
+
+
+
+   </script>
+
+</body>
+
+</html>
