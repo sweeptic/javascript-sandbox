@@ -111,7 +111,98 @@
       console.log(player7)
       console.log(Player7.prototype)
 
+      console.warn('Sub-Classing - A.K.A Inheritance')
+      function double(num) {
+         return num * 2;
+      }
+      double.toString() // where is this method coming from?
+      Function.prototype // {toString: f, call: f, bind: f}
+      double.hasOwnProperty('name') // where is this method coming from?
+      Function.prototype.__proto__ // -> Object.prototype {hasOwnProperty: f}
+      console.log(double.prototype)
 
+      console.warn('OLOO - Sub Classing')
+      const playerFunctions = {
+         setScore(newScore) {
+            this.score = newScore;
+         }
+      }
+      function createPlayer(userName, score) {
+         const newPlayer = Object.create(playerFunctions);
+         newPlayer.userName = userName;
+         newPlayer.score = score;
+         return newPlayer;
+      }
+      const paidPlayerFunctions = {
+         setUserName(newName) {
+            this.userName = newName;
+         }
+      }
+      // link paidPlayerFunctions object to createPlayer object
+      Object.setPrototypeOf(paidPlayerFunctions, playerFunctions);
+      function createPaidPlayer(userName, score, balance) {
+         const paidPlayer = createPlayer(name, score);
+         // we need to change the pointer here
+         Object.setPrototypeOf(paidPlayer, paidPlayerFunctions);
+         paidPlayer.balance = balance;
+         return paidPlayer
+      }
+      const player9 = createPlayer('regular player', 700);
+      const paidPlayer = createPaidPlayer('paid player', 700, 5);
+      console.log(player9)
+      console.log(paidPlayer)
+
+      console.warn('Constructor Functions - Sub Classing')
+      function Player10(userName, score) {
+         this.userName = userName;
+         this.score = score;
+      }
+      Player10.prototype.setScore = function (newScore) {
+         this.score = newScore;
+      }
+      function PaidPlayer10(userName, score, balance) {
+         this.balance = balance;
+         /* we are calling "Player" without the "new" operator
+         but we use the "call" method,
+         which allows us to explicitly pass a ref for "this".
+         Now the "Player" function will mutate "this"
+         and will populate it with the relevant properties */
+         Player10.call(this, userName, score);
+      }
+      PaidPlayer10.prototype.setUserName = function (newName) {
+         this.userName = newName;
+      }
+      // link PaidPlayer.prototype object to Player.prototype object
+      Object.setPrototypeOf(PaidPlayer10.prototype, Player10.prototype);
+      const player10 = new Player10('sag1v', 700);
+      const paidPlayer2 = new PaidPlayer10('sarah', 900, 5);
+      console.log(player10)
+      console.log(paidPlayer2)
+
+      console.warn('Class - Sub Classing')
+      class Player11 {
+         constructor(userName, score) {
+            this.userName = userName;
+            this.score = score;
+         }
+         setScore(newScore) {
+            this.score = newScore;
+         }
+      }
+      class PaidPlayer11 extends Player11 {
+         constructor(userName, score, balance) {
+            super(userName, score);
+            // this = Reflect.construct(Player, [userName, score], PaidPlayer);
+            this.balance = balance;
+         }
+         setUserName(newName) {
+            this.userName = newName;
+         }
+      }
+      const player11 = new Player11('sag1v', 700);
+      const paidPlayer11 = new PaidPlayer11('sarah', 900, 5);
+      console.log(player11)
+      console.log(paidPlayer11)
 
 
    </script>
